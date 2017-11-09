@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { createStore } from 'redux'
+import { createStore,applyMiddleware} from 'redux'
+import {createLogger} from 'redux-logger';
 import Counter from './components/Counter'
 import counterAction from './reducers'
 import api from './api/api'
-
-const store = createStore(counterAction)
+const logger = createLogger();
+const store = createStore(counterAction,applyMiddleware(logger))
 
 const rootEl = document.getElementById('root')
 
