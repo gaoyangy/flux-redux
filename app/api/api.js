@@ -4,7 +4,7 @@ const ajax = {
  get (refs){
     return new Promise((resolve,reject) => {
       return setTimeout((refs) =>{
-        resolve(1123)
+        resolve(Math.floor(Math.random()*99)+1)
       }, 1000);
     })
   }
