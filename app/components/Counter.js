@@ -17,7 +17,9 @@ class Counter extends Component {
   incrementAsync() {
     setTimeout(this.props.onIncrement, 1000)
   }
-
+  addMath(){
+    store.dispatch({ type: 'INCREMENT' })
+  }
   render() {
     const { value, onIncrement, onDecrement } = this.props
     return (
@@ -47,7 +49,7 @@ class Counter extends Component {
 Counter.propTypes = {
   value: PropTypes.number.isRequired,
   onIncrement: PropTypes.func.isRequired,
-  onDecrement: PropTypes.func.isRequired
+  onDecrement: PropTypes.func.isRequired,
 }
 
 export default Counter

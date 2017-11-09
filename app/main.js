@@ -3,19 +3,30 @@ import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import Counter from './components/Counter'
 import counterAction from './reducers'
+import api from './api/api'
 
 const store = createStore(counterAction)
+
 const rootEl = document.getElementById('root')
 
+const methods ={
+  adds () {
+      api.get().then(data => {
+        store.dispatch({ type: 'INCREMENT' ,payload:{res:data,oldState:store.getState()}})
+      })
+  },
+  del () {
+    store.dispatch({ type: 'DECREMENT' })
+  }
+}
 const render = () => ReactDOM.render(
   <Counter
     value={store.getState()}
-    onIncrement={() => store.dispatch({ type: 'INCREMENT' })}
-    onDecrement={() => store.dispatch({ type: 'DECREMENT' })}
+    onIncrement={methods.adds}
+    onDecrement={methods.del}
   />,
   rootEl
 )
-
 render()
 store.subscribe(render)
 

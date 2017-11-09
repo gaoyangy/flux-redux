@@ -1,7 +1,7 @@
-export default (state = 0, action) => {
+export default  (state = 0, action) => {
   switch (action.type) {
     case 'INCREMENT':
-      return state + 1
+      return action.payload.res + action.payload.oldState
     case 'DECREMENT':
       return state - 1
     default:
