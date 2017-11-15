@@ -6,6 +6,7 @@ class Counter extends Component {
     super(props);
     this.incrementAsync = this.incrementAsync.bind(this);
     this.incrementIfOdd = this.incrementIfOdd.bind(this);
+    this.removeList = this.removeList.bind(this)
   }
 
   incrementIfOdd() {
@@ -13,7 +14,9 @@ class Counter extends Component {
       this.props.onIncrement()
     }
   }
-
+  removeList(key) {
+    console.log(this,key)
+  }
   incrementAsync() {
     setTimeout(this.props.onIncrement, 1000)
   }
@@ -21,16 +24,26 @@ class Counter extends Component {
     store.dispatch({ type: 'INCREMENT' })
   }
   render() {
-    const { value, onIncrement, onDecrement } = this.props
+    let {inputValue, list, value, onIncrement, onDecrement,addList,removeList } = this.props
+    let lists = list ? Array.from(list) : []
+    let values = lists.length
     return (
       <p>
-        Clicked: {value} times
-        {' '}
+        <i>redux to do</i>
+        <br/>
+        sum: {values}
+        <br/>
+          {lists.map((result, key) => {
+            return <span key={key}><button onClick={removeList.bind(this,key)}>X</button>-------{result}<br/></span>
+        },this)
+        }
+        <br/>
+        <input ref="inputVal"/>
         <button onClick={onIncrement}>
           +
         </button>
         {' '}
-        <button onClick={onDecrement}>
+        <button onClick={onDecrement.bind(this)}>
           -
         </button>
         {' '}
@@ -41,13 +54,15 @@ class Counter extends Component {
         <button onClick={this.incrementAsync}>
           Increment async
         </button>
+        <button onClick={addList.bind(this)}>
+        addList
+      </button>
       </p>
     )
   }
 }
 
 Counter.propTypes = {
-  value: PropTypes.number.isRequired,
   onIncrement: PropTypes.func.isRequired,
   onDecrement: PropTypes.func.isRequired,
 }
